@@ -6,7 +6,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from app.models.task import Base
-from app.db import ASYNC_DB_URL
+from app.db import DB_URL  # 追加
 
 config = context.config
 
@@ -16,9 +16,8 @@ if config.config_file_name is not None:
 target_metadata = Base.metadata
 
 def run_migrations_offline() -> None:
-    url = ASYNC_DB_URL
     context.configure(
-        url=url,
+        url=DB_URL,  # 変更
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
@@ -32,7 +31,7 @@ def run_migrations_online() -> None:
         config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
-        url=ASYNC_DB_URL,
+        url=DB_URL,  # 追加
     )
 
     with connectable.connect() as connection:
