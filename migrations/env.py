@@ -5,8 +5,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from app.models.task import Base
+from app.models import Base
 from app.db import DB_URL  # 追加
+
+from app.models import User, Book, BookInformation, BookRequest, BookLoan
 
 config = context.config
 
