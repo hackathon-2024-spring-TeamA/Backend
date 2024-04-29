@@ -54,7 +54,7 @@ query {
 
 ## Alembic
 
-マイグレーションファイルを作成する
+- マイグレーションファイルを作成する
 
 ```
 docker-compose run --rm app poetry run alembic revision --autogenerate -m "マイグレーションファイルの説明"
@@ -77,3 +77,14 @@ docker-compose run --rm app poetry run alembic downgrade base
 ```
 
 - migrations/versions のファイルは不要（失敗した時など）になったら削除する
+
+---
+## memo
+- .gitignoreに追加するだけでなく、ローカルで以下を実行すると__pyache__などのファイルを管理から除外できる
+```
+git rm -r --cached __pycache__/
+git rm -r --cached *.py[cod]
+git rm --cached *$py.class
+```
+
+`git rm --chached`ではインデックス（ステージング）からのみ消してくれるため、ワークツリーにはファイルが残るがgit管理から消すことができる便利なオプション
