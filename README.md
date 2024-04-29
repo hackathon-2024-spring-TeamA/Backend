@@ -43,3 +43,16 @@ query {
 
 参考記事
 - [Notion](https://pinto-waltz-911.notion.site/Ariadne-122f3d9811d94bfd832c1e6dc88acc01#15c290b6126c4bfab0af9ce7db6ebb3c) ...変なテンションで書いたので語尾がおかしいです
+
+---
+## Alembic
+マイグレーションファイルを作成する
+```
+docker-compose run --rm app poetry run alembic revision --autogenerate -m "マイグレーションファイルの説明"
+```
+
+- 最新のマイグレーションファイルの状態を反映する
+```
+docker-compose run --rm app poetry run alembic upgrade head
+```
+
