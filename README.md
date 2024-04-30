@@ -6,6 +6,16 @@
 
 ### 成功するクエリ
 
+- sqlalchemyでデータを登録するサンプルmutationのリクエスト方法
+```
+mutation {
+  createUser(request: {
+    email: "tesat@example.com",
+    password: "password123"
+  })
+}
+```
+
 ```
 query {
   authenticateUser(request: {
