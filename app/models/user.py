@@ -5,7 +5,6 @@ from app.db import Base
 
 class User(Base):
     __tablename__ = "users"
-
     user_id = Column(Integer, primary_key=True)
     email = Column(String(255), nullable=False, unique=True)
     password = Column(String(255), nullable=False)
@@ -14,7 +13,8 @@ class User(Base):
     updated_at = Column(DateTime, nullable=False)
     updated_by = Column(Integer)
     is_delete = Column(Boolean, nullable=False, default=False)
-
     books = relationship("Book", back_populates="user")
-    book_requests = relationship("BookRequest", foreign_keys="[BookRequest.requester_id, BookRequest.holder_id]", back_populates="user")
+    # 変更: BookRequestとのリレーションシップを2つに分割
+    book_requests_as_requester = relationship("BookRequest", foreign_keys="[BookRequest.requester_id]", back_populates="requester")
+    book_requests_as_holder = relationship("BookRequest", foreign_keys="[BookRequest.holder_id]", back_populates="holder")
     book_loans = relationship("BookLoan", back_populates="user")

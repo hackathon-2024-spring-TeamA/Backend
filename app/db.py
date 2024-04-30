@@ -15,3 +15,10 @@ def get_db():
         yield db
     finally:
         db.close()
+
+def create_context(request):
+    db = next(get_db()) # ジェネレータからセッションを取得し、確実に開始します。
+    try:
+        return {"db": db, "request": request}
+    finally:
+        db.close() # リクエストが完了したらセッションをクローズします。
