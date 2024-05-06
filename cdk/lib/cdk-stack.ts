@@ -22,7 +22,6 @@ export class CdkStack extends Stack {
       ]
     });
 
-    // ELB用のセキュリティグループを作成
     // 第三引数にはこのセキュリティグループが属するVPCのオブジェクト。vpcは上記で指定したVPCコンストラクタについた名前
     const securityGroupELB = new ec2.SecurityGroup(this, 'SecurityGroupELB', { vpc });
     securityGroupELB.addIngressRule(ec2.Peer.anyIpv4(), ec2.Port.tcp(80), 'Allow HTTP traffic from anywhere');
@@ -93,7 +92,7 @@ export class CdkStack extends Stack {
       containerPort: 8888, // コンテナのポートも8888に設定
     });
 
-    // Fargateサービスを作成し、ターゲットグループに接続します.
+    // Fargateサービスを作成し、ターゲットグループに接続します。
     const service = new ecs.FargateService(this, 'Service', {
       cluster,
       taskDefinition: fargateTaskDefinition,

@@ -13,7 +13,6 @@ DB_CHARSET = os.getenv("DB_CHARSET", "utf8")
 # RDSを使用するように変更（CDKにて設定しているurlを使用している）
 DB_URL = f"mysql+mysqldb://{DB_USERNAME}:{DB_PASSWORD}@{DB_ENDPOINT}:{DB_PORT}/{DB_NAME}?charset={DB_CHARSET}"
 
-# Unix ソケットを無効にする設定を削除
 engine = create_engine(DB_URL, echo=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -30,9 +29,6 @@ def get_db():
 def create_context(request):
     db = next(get_db()) # ジェネレータからセッションを取得し、確実に開始します。
     try:
-        # シンプルなSELECTクエリを行う例
-        result = db.execute(text("SELECT 1"))
-        print(result.fetchall())  # デバッグ用に結果を表示
         return {"db": db, "request": request}
     finally:
-        db.close() # リクエストが完了したらセッションをクローズします.
+        db.close() # リクエストが完了したらセッションをクローズします。
