@@ -1,8 +1,8 @@
-"""migrate
+"""user_idをCognitoの仕様に合わせuuid4に変更する
 
-Revision ID: aa9074b2d443
+Revision ID: 69308141027b
 Revises: 
-Create Date: 2024-04-29 07:40:56.556735
+Create Date: 2024-05-09 12:09:28.964971
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'aa9074b2d443'
+revision: str = '69308141027b'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -32,20 +32,20 @@ def upgrade() -> None:
     sa.UniqueConstraint('isbn_number')
     )
     op.create_table('users',
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.String(length=36), nullable=False),
     sa.Column('email', sa.String(length=255), nullable=False),
     sa.Column('password', sa.String(length=255), nullable=False),
     sa.Column('nickname', sa.String(length=255), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('updated_at', sa.DateTime(), nullable=False),
-    sa.Column('updated_by', sa.Integer(), nullable=True),
+    sa.Column('updated_by', sa.String(length=36), nullable=True),
     sa.Column('is_delete', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('user_id'),
     sa.UniqueConstraint('email')
     )
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.String(length=36), nullable=False),
     sa.Column('book_information_id', sa.Integer(), nullable=False),
     sa.Column('donation_date', sa.Date(), nullable=False),
     sa.ForeignKeyConstraint(['book_information_id'], ['book_informations.book_information_id'], ),
@@ -54,7 +54,7 @@ def upgrade() -> None:
     )
     op.create_table('book_loans',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.String(length=36), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
     sa.Column('rent_date', sa.Date(), nullable=False),
     sa.Column('due_date', sa.Date(), nullable=False),
@@ -67,8 +67,8 @@ def upgrade() -> None:
     op.create_table('book_requests',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('book_id', sa.Integer(), nullable=False),
-    sa.Column('requester_id', sa.Integer(), nullable=False),
-    sa.Column('holder_id', sa.Integer(), nullable=False),
+    sa.Column('requester_id', sa.String(length=36), nullable=False),
+    sa.Column('holder_id', sa.String(length=36), nullable=False),
     sa.Column('request_date', sa.Date(), nullable=False),
     sa.Column('status', sa.Enum('requested', 'sending', 'arrived'), nullable=False),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
