@@ -1,6 +1,7 @@
 from ariadne import MutationType
 from datetime import datetime
 from app.models.user import User
+import uuid
 
 mutation = MutationType()
 
@@ -12,6 +13,7 @@ def resolve_create_user(_, info, request):
     password = request["password"]
     
     new_user = User(
+        user_id=uuid.uuid4(),
         email=email,
         password=password,
         nickname="nickname",
