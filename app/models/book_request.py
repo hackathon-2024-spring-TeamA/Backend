@@ -5,7 +5,8 @@ from app.db import Base
 
 class BookRequest(Base):
     __tablename__ = "book_requests"
-    id = Column(Integer, primary_key=True)
+
+    id = Column(String(36), primary_key=True)
     book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
     requester_id = Column(String(36), ForeignKey("users.user_id"), nullable=False)
     holder_id = Column(String(36), ForeignKey("users.user_id"), nullable=False)

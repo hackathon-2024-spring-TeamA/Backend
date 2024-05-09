@@ -6,7 +6,7 @@ from app.db import Base
 class BookLoan(Base):
     __tablename__ = "book_loans"
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String(36), primary_key=True)
     user_id = Column(String(36), ForeignKey("users.user_id"), nullable=False)
     book_id = Column(Integer, ForeignKey("books.id"), nullable=False)
     rent_date = Column(Date, nullable=False)
