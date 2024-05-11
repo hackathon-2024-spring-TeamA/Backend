@@ -5,13 +5,13 @@ from app.db import Base
 
 class User(Base):
     __tablename__ = "users"
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String(36), primary_key=True)
     email = Column(String(255), nullable=False, unique=True)
     password = Column(String(255), nullable=False)
     nickname = Column(String(255))
     created_at = Column(DateTime, nullable=False)
     updated_at = Column(DateTime, nullable=False)
-    updated_by = Column(Integer)
+    updated_by = Column(String(36))
     is_delete = Column(Boolean, nullable=False, default=False)
     books = relationship("Book", back_populates="user")
     # 変更: BookRequestとのリレーションシップを2つに分割
