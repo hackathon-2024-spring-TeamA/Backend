@@ -1,6 +1,6 @@
 from ariadne import QueryType
 from sqlalchemy.orm import joinedload
-from app.models import BookRequest, Book, BookInformation
+from app.models import BookRequest, Book
 
 query = QueryType()
 
