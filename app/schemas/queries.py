@@ -4,6 +4,6 @@ type_defs = """
         authenticateUser(request: Request!): Response
 
         ### [リクエスト機能] ###
-        paginatedBookRequests(page: Int!, perPage: Int!): PaginationData!
+        paginatedBookRequests(page: Int!, perPage: Int!, userId: String!, isMyRequest: Boolean!): PaginationData!
     }
 """
