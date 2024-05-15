@@ -27,3 +27,14 @@ def resolve_paginated_book_requests(_, info, page, perPage, userId, isMyRequest)
         "perPage": perPage,
         "bookRequests": book_requests,
     }
+
+@query.field("getBookRequest")
+def resolve_get_book_request(_, info, requestId):
+    db = info.context["db"]
+    book_request = (
+        db.query(BookRequest)
+        .filter(BookRequest.id == requestId)
+        .options(joinedload(BookRequest.book).joinedload(Book.book_information))
+        .first()
+    )
+    return book_request
