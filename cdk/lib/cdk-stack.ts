@@ -1,7 +1,7 @@
 // AWS CDKのコアライブラリと、使用するAWSサービスを一括でインポートします。
 import { aws_ec2 as ec2, aws_ecs as ecs, aws_elasticloadbalancingv2 as elbv2, aws_logs as logs, aws_ecr_assets as ecr_assets, aws_rds as rds, Stack, StackProps, App, RemovalPolicy } from 'aws-cdk-lib';
 
-export class CdkStack extends Stack {
+export class NewCdkStack extends Stack {
   constructor(scope: App, id: string, props?: StackProps) {
     super(scope, id, props);
 
@@ -141,4 +141,8 @@ export class CdkStack extends Stack {
     securityGroupAPP.addIngressRule(securityGroupRDS, ec2.Port.tcp(3306), 'Allow MySQL traffic from RDS to app');
   }
 }
+
+const app = new App();
+new NewCdkStack(app, 'NewCdkStack');  // スタック名を変更
+app.synth();
 
