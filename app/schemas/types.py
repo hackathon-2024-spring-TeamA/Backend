@@ -54,6 +54,34 @@ type_defs = """
         bookRequests: [BookRequest!]!
     }
 
+    ################### [検索機能] ##################
+
+    type SearchPaginationData {
+      totalCount: Int!
+      currentPage: Int!
+      perPage: Int!
+      books: [SearchBook!]!
+    }
+
+    type SearchBook {
+      id: Int!
+      user_id: String!
+      book_information: BookInformation!
+      donation_date: String!
+      latest_book_loan: BookLoan
+      latest_book_request: BookRequest
+    }
+
+    type BookLoan {
+      id: String!
+      user_id: String!
+      book_id: Int!
+      rent_date: String!
+      due_date: String!
+      return_date: String
+      is_held: Boolean!
+    }
+
     ################### [{}機能] ##################
 
 
