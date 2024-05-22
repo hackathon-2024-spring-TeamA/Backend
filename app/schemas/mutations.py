@@ -5,5 +5,8 @@ type_defs = """
 
         ### [リクエスト機能] ###
         updateBookRequestStatus(requestId: String!, status: String!): BookRequest!
+
+        ### [借りる機能] ###
+        createBookRequest(request: CreateBookRequestInput!): CreateBookRequestResponse!
     }
 """

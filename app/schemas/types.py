@@ -82,6 +82,19 @@ type_defs = """
       is_held: Boolean!
     }
 
+    ################### [借りる機能] ##################
+
+    type CreateBookRequestResponse {
+      isSuccess: Boolean!
+      errorMessage: String
+    }
+
+    input CreateBookRequestInput {
+      bookId: Int!
+      holderId: String!
+      requesterId: String!
+    }
+
     ################### [{}機能] ##################
 
 
