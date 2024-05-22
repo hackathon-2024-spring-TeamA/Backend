@@ -72,8 +72,8 @@ export class NewCdkStack extends Stack {
     // タスク定義へdocker uriの登録
     // タスク定義の更新が行われている
     const fargateTaskDefinition = new ecs.FargateTaskDefinition(this, 'TaskDef', {
-      memoryLimitMiB: 1024,
-      cpu: 512,
+      memoryLimitMiB: 512,
+      cpu: 256,
       runtimePlatform: {
         cpuArchitecture: ecs.CpuArchitecture.X86_64,  // CPUアーキテクチャを指定
         operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,  // OSファミリーを指定

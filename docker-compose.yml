@@ -7,7 +7,7 @@ services:
       context: .
       dockerfile: Dockerfile
       # M1 Mac などの ARM アーキテクチャ向けに適切なプラットフォームを指定
-    platform: linux/amd64
+    # platform: linux/amd64
     ports:
       - "8888:8888"
     volumes:

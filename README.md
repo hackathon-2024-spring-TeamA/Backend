@@ -6,7 +6,8 @@
 
 ### 成功するクエリ
 
-- sqlalchemyでデータを登録するサンプルmutationのリクエスト方法
+- sqlalchemy でデータを登録するサンプル mutation のリクエスト方法
+
 ```
 mutation {
   createUser(request: {
@@ -15,6 +16,8 @@ mutation {
   })
 }
 ```
+
+- 認証機能のMock
 
 ```
 query {
@@ -34,6 +37,8 @@ query {
 ```
 
 ### 失敗するクエリ
+
+- 認証機能で失敗する間違ったパスワードを入力するサンプル
 
 ```
 query {
@@ -89,12 +94,52 @@ docker-compose run --rm app poetry run alembic downgrade base
 - migrations/versions のファイルは不要（失敗した時など）になったら削除する
 
 ---
+
 ## memo
-- .gitignoreに追加するだけでなく、ローカルで以下を実行すると__pyache__などのファイルを管理から除外できる
+
+- .gitignore に追加するだけでなく、ローカルで以下を実行すると**pyache**などのファイルを管理から除外できる
+
 ```
 git rm -r --cached __pycache__/
 git rm -r --cached *.py[cod]
 git rm --cached *$py.class
 ```
 
-`git rm --chached`ではインデックス（ステージング）からのみ消してくれるため、ワークツリーにはファイルが残るがgit管理から消すことができる便利なオプション
+`git rm --chached`ではインデックス（ステージング）からのみ消してくれるため、ワークツリーにはファイルが残るが git 管理から消すことができる便利なオプション
+
+---
+
+## クエリサンプル
+
+- リクエスト機能で使うフロントエンドでのクエリサンプル
+
+```GraphQL
+query {
+  paginatedBookRequests(page: 1, perPage: 10) {
+    totalCount
+    currentPage
+    perPage
+    bookRequests {
+      id
+      book {
+        id
+        user_id
+        book_information {
+          book_information_id
+          isbn_number
+          title
+          author
+          published_date
+          description
+          image_path
+        }
+        donation_date
+      }
+      requester_id
+      holder_id
+      request_date
+      status
+    }
+  }
+}
+```
