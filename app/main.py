@@ -5,6 +5,21 @@ from ariadne.asgi import GraphQL
 from app.resolvers import query, mutation# from app.resolvers.mutations import mutation
 from app.schemas import schema_type_defs
 from app.db import create_context
+import logging
+import sys
+
+# ログフォーマットの設定
+logging.basicConfig(
+    level=logging.INFO,  # ログレベルの設定 (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    handlers=[
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+
+# ロガーの取得
+logger = logging.getLogger(__name__)
+
 
 app = FastAPI()
 

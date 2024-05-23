@@ -12,5 +12,8 @@ type_defs = """
 
         ### [ニックネーム取得] ###
         getUserNickname(userId: String!): String
+
+        ### [寄付機能] ###
+        getAllBooks: [BookInformation!]
     }
 """

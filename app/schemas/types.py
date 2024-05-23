@@ -95,6 +95,11 @@ type_defs = """
       requesterId: String!
     }
 
+    ################### [寄付機能] ##################
+    type Donation {
+        book_information: BookInformation!
+    }
+
     ################### [{}機能] ##################
 
 
