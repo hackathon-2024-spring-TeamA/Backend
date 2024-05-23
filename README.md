@@ -1,4 +1,4 @@
-## 立ち上げ方
+## 立ち上げ方です
 
 1. `docker-compose up`
 2. [8888 番ポート](http://localhost:8888/graphql)にアクセスする

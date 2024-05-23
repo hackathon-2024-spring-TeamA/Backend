@@ -1,7 +1,17 @@
-from sqlalchemy import create_engine
+import os
+from sqlalchemy import create_engine, text  # text をインポート
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-DB_URL = "mysql+mysqldb://root@db:3306/raretech_library?charset=utf8"
+# 環境変数からDB接続情報を取得
+DB_ENDPOINT = os.getenv("DB_ENDPOINT", "")
+DB_PORT = os.getenv("DB_PORT", "3306")
+DB_USERNAME = os.getenv("DB_USERNAME", "admin")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "")
+DB_NAME = os.getenv("DB_NAME", "raretech_library")
+DB_CHARSET = os.getenv("DB_CHARSET", "utf8")
+
+# RDSを使用するように変更（CDKにて設定しているurlを使用している）
+DB_URL = f"mysql+mysqldb://{DB_USERNAME}:{DB_PASSWORD}@{DB_ENDPOINT}:{DB_PORT}/{DB_NAME}?charset={DB_CHARSET}"
 
 engine = create_engine(DB_URL, echo=True)
 
