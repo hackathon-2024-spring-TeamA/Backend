@@ -9,5 +9,8 @@ type_defs = """
 
         ### [本検索機能] ###
         searchBooks(page: Int!, perPage: Int!, searchQuery: String): SearchPaginationData!
+
+        ### [ニックネーム取得] ###
+        getUserNickname(userId: String!): String
     }
 """
