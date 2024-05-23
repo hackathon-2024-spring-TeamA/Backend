@@ -1,4 +1,6 @@
 from ariadne import QueryType
+from sqlalchemy.orm import joinedload
+from app.models import User
 
 query = QueryType()
 
@@ -13,3 +15,12 @@ def resolve_authenticate_user(_, info, request):
         return {"isSuccess": True, "errorMessage": None, "data": user}
     else:
         return {"isSuccess": False, "errorMessage": "Invalid email or password", "data": None}
+
+@query.field("getUserNickname")
+def resolve_get_user_nickname(_, info, userId):
+    db = info.context["db"]
+    user = db.query(User).filter(User.user_id == userId).first()
+    if user:
+        return user.nickname
+    else:
+        return None
