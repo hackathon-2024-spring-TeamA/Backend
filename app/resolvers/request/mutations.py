@@ -28,6 +28,16 @@ def resolve_update_book_request_status(_, info, requestId, status, userId=None, 
         db.add(book_loan)
     elif status == "arrived":
         raise ValueError("userId and bookId are required when status is 'arrived'")
+    elif status == "sending" and bookId:
+        latest_book_loan = (
+            db.query(BookLoan)
+            .filter(BookLoan.book_id == bookId)
+            .order_by(BookLoan.rent_date.desc())
+            .first()
+        )
+        if latest_book_loan:
+            latest_book_loan.return_date = datetime.now().date()
+            latest_book_loan.is_held = False
 
     db.commit()
     return book_request
