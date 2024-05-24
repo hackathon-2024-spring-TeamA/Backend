@@ -3,7 +3,7 @@ from app.models.book import Book
 from app.models.user import User
 
 from ariadne import MutationType
-import datetime
+from datetime import datetime, date
 
 mutation = MutationType()
 
@@ -36,7 +36,8 @@ def resolve_save_book(_, info, user_id, isbn_number, title, author, published_da
     new_book = Book(
         user_id=user_id,
         book_information_id=book_info.book_information_id,
-        donation_date=datetime.date.today()
+        donation_date=date.today(),
+        created_at=datetime.now()
     )
     db.add(new_book)
     db.commit()
