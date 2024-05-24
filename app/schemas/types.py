@@ -95,6 +95,21 @@ type_defs = """
       requesterId: String!
     }
 
+    ################### [寄付機能] ##################
+
+    type Books {
+        id: Int!
+        user_id: String!
+        book_information_id: Int!
+        donation_date: String!
+        book_information: BookInformation!
+    }
+
+    type SaveBookResponse {
+        book: Books
+        error: String
+    }
+
     ################### [{}機能] ##################
 
 

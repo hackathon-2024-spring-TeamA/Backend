@@ -8,5 +8,16 @@ type_defs = """
 
         ### [借りる機能] ###
         createBookRequest(request: CreateBookRequestInput!): CreateBookRequestResponse!
+
+        ### [寄付機能] ###
+        saveBook(
+            user_id: String!,
+            isbn_number: String!,
+            title: String!,
+            author: String!,
+            published_date: String,
+            description: String,
+            image_path: String
+        ): SaveBookResponse!
     }
 """
