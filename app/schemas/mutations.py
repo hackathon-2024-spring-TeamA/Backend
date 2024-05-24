@@ -10,13 +10,14 @@ type_defs = """
         createBookRequest(request: CreateBookRequestInput!): CreateBookRequestResponse!
 
         ### [寄付機能] ###
-        addBook(
-        isbn_number: String!,
-        title: String!,
-        author: String!,
-        published_date: String,
-        description: String,
-        image_path: String,
-        ): Donation
+        saveBook(
+            user_id: String!,
+            isbn_number: String!,
+            title: String!,
+            author: String!,
+            published_date: String,
+            description: String,
+            image_path: String
+        ): SaveBookResponse!
     }
 """
