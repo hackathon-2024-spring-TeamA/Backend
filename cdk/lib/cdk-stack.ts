@@ -1,4 +1,3 @@
-// AWS CDKのコアライブラリと、使用するAWSサービスを一括でインポートします。
 import { aws_ec2 as ec2, aws_ecs as ecs, aws_elasticloadbalancingv2 as elbv2, aws_logs as logs, aws_ecr_assets as ecr_assets, aws_rds as rds, Stack, StackProps, App, RemovalPolicy } from 'aws-cdk-lib';
 
 export class NewCdkStack extends Stack {
@@ -28,10 +27,11 @@ export class NewCdkStack extends Stack {
 
     // アプリケーション用のセキュリティグループ
     const securityGroupAPP = new ec2.SecurityGroup(this, 'SecurityGroupAPP', { vpc });
-    // デフォルトですべてのインバウンドトラフィックを拒否している
+    securityGroupAPP.addIngressRule(securityGroupELB, ec2.Port.tcp(80), 'Allow HTTP traffic from ALB');
 
     // RDS用のセキュリティグループ
     const securityGroupRDS = new ec2.SecurityGroup(this, 'SecurityGroupRDS', { vpc });
+    securityGroupRDS.addIngressRule(securityGroupAPP, ec2.Port.tcp(3306), 'Allow MySQL traffic from app to RDS');
 
     // アプリケーションロードバランサーを作成します。インターネットからアクセス可能に設定しています。
     const alb = new elbv2.ApplicationLoadBalancer(this, 'ALB', {
@@ -136,13 +136,11 @@ export class NewCdkStack extends Stack {
     container.addEnvironment('DB_NAME', dbName);
     container.addEnvironment('DB_CHARSET', 'utf8');
 
-    // セキュリティグループのルールを追加。アプリケーションからRDSへのアクセス、RDSのセキュリティグループにも同様のルールを設定
+    // セキュリティグループのルールを追加。アプリケーションからRDSへのアクセス
     securityGroupAPP.addIngressRule(securityGroupRDS, ec2.Port.tcp(3306), 'Allow MySQL traffic from app to RDS');
-    securityGroupAPP.addIngressRule(securityGroupRDS, ec2.Port.tcp(3306), 'Allow MySQL traffic from RDS to app');
   }
 }
 
 const app = new App();
 new NewCdkStack(app, 'NewCdkStack');  // スタック名を変更
 app.synth();
-
