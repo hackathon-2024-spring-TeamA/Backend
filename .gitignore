@@ -7,3 +7,4 @@ __pycache__/
 .env
 
 # Other files and directories you want to ignore
+lambda
