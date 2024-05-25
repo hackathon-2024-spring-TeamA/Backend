@@ -15,5 +15,8 @@ type_defs = """
 
         ### [寄付機能] ###
         getAllBooks: [BookInformation!]
+
+        ### [ユーザー機能] ###
+        getUserBookLoans(userId: String!): [BookLoan!]!
     }
 """

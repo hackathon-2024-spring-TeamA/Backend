@@ -26,3 +26,17 @@ def resolve_create_user(_, info, request):
     db.commit()
     
     return "Seikou!"
+
+@mutation.field("updateUserNickname")
+def resolve_update_user_nickname(_, info, userId, nickname):
+    db = info.context["db"]
+
+    user = db.query(User).filter(User.user_id == userId).first()
+
+    if user:
+        user.nickname = nickname
+        user.updated_at = datetime.now()
+        db.commit()
+        return "Success"
+    else:
+        return "User not found"
