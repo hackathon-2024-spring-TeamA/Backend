@@ -75,6 +75,7 @@ type_defs = """
     type BookLoan {
       id: String!
       user_id: String!
+      book: Book!
       book_id: Int!
       rent_date: String!
       due_date: String!

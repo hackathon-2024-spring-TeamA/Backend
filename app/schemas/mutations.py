@@ -19,5 +19,8 @@ type_defs = """
             description: String,
             image_path: String
         ): SaveBookResponse!
+
+        ### [ユーザー機能] ###
+        updateUserNickname(userId: String!, nickname: String!): String!
     }
 """
