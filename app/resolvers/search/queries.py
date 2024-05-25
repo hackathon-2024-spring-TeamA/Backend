@@ -25,7 +25,7 @@ def resolve_search_books(_, info, page, perPage, searchQuery=None):
 
     total_count = query.count()
 
-    books = query.order_by(Book.donation_date.desc()).limit(perPage).offset((page - 1) * perPage).all()
+    books = query.order_by(Book.created_at.desc()).limit(perPage).offset((page - 1) * perPage).all()
 
     for book in books:
         book.latest_book_loan = max(book.book_loans, key=lambda loan: loan.rent_date) if book.book_loans else None
